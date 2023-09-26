@@ -8,6 +8,6 @@ public class ParentClass {
     }
 
     public void parentClassMethod() {
-        System.out.println("parent class method");
+        System.out.println("parent class method : " + parentClassField);
     }
 }
