@@ -6,4 +6,8 @@ public class Cat extends Animals {
     void catMethod () {
         System.out.println("meow");
     }
+
+    void catMethod3 () {
+        System.out.println("meow");
+    }
 }

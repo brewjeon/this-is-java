@@ -15,7 +15,8 @@ public class main {
         //Cat cat1 = new Animals();   // ❌ 컴파일 에러: 상위를 하위에 대입하는 것을 불가능함
         //Cat cat2 = dog;   // ❌ 컴파일 에러: 상속 관계가 아님
 
-        animals1.catMethod();
+        animals1.catMethod();   // 오버라이딩 된 메서드가 호출된다.
         animals1.catMethod2();
+        animals1.catMethod3();  // ❌ 컴파일 에러 : 부모 타입으로 자동 타입 변환된 이후에는 부모 클래스에 선언된 필드와 메서드만 접근이 가능하다.
     }
 }

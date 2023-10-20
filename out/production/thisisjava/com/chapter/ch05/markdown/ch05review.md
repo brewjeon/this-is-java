@@ -227,5 +227,18 @@ String secondNum = ssn.substring(7);
 
 ### 문자열 찾기
 ```java
+package com.chapter.ch05.example.ex01;
 
+public class IndexOf {
+    public static void main(String[] args) {
+        String subject = "자바 프로그래밍";
+        int index = subject.indexOf("프로그래밍");
+        int index2 = subject.indexOf("플밍");
+
+        System.out.println(index);  // 3
+        System.out.println(index2); // -1
+    }
+}
 ```
+
+* 문자열에서 특정 문자열의 위치를 찾고자 할 때에는 indexOf() 메서드를 사용한다. 
