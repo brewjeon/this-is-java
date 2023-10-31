@@ -109,11 +109,461 @@ class Shop {
 ```
 쉽게 이해하기
 
-여기서 말하는 사용 방법은 메서드를 호출하는 것이라고 표현하는 것이 가장 좋을 거 같다.
-예를 들어 키보드가 있는데 이 키보드는 여러 키들로 구성되어 있지만 입력하는 방법은 누르는 것으로 모두 같다. 
-하지만 각 키를 누르면 그에 따른 다양한 실행 결과를 보인다.
+"입력하다"라는 메서드를 가진 입력장치라는 기본 클래스(또는 인터페이스)를 상속받아 키보드와 휴대폰자판 클래스를 만들 수 있다.
+이 두 클래스는 입력하다 메서드를 오버라이드하여 각각의 특성에 맞게 구현할 수 있다.
 
+이처럼 다형성은 한 가지 형태의 인터페이스나 메서드를 제공하면서 다양한 구현을 할 수 있게 한다.
+이를 통해 코드의 재사용성과 유지 보수성이 향상되며, 시스템의 확장성을 증가시키는 데 큰 도움을 준다.
+```
+
+### 객체와 클래스
+
+[ 클래스 ]
+* 객체를 생성하려면 클래스가 필요하다.
+* 클래스로부터 생성된 객체를 해당 클래스의 `인스턴스`라고 한다.
+* 그리고 이 클래스로부터 객체를 만드는 과정을 `인스턴스화`라고 한다.
+
+[ 클래스 선언 ]
+* 어떻게 객체를 생성(생성자)하고, 객체가 가져야 할 데이터(필드)가 무엇이고, 객체의 동작(메서드)은 무엇인지를 정의하는 내용이 포함된다.
+* 클래스명은 첫 문자를 대문자로 하고 캐멀 스타일로 작성한다.
+
+### 객체 생성과 클래스 변수
+
+[ new ]
+* 클래스로부터 객체를 생성하려면 객체 생성 생저아니 new 연산자가 필요하다.
+* new 연산자 뒤에는 생성자 호출 코드가 오는데, 클래스() 형태를 가진다.
+* new 연산자는 객체를 생성시킨 후 객체의 주소를 리턴하기 때문에 클래스 변수에 다음과 같이 대입할 수 있다.
+
+```
+Loopy loopy = new Loopy();
+=> loopy 변수가 Loopy 객체를 참조한다.
+
+Loopy littleLoppy = new Loopy();
+=> littleLoppy 변수가 또 다른 Loopy 객체를 참조한다.
+
+즉 Stack 영역에 loopy, littleLoopy가 변수로 존재하며, Heap 메모리에 위치한 각각의 Loopy 객체들을 참조한다. 
+```
+
+[ 클래스의 두 가지 용도 ]
+* 라이브러리 클래스 : 실행할 수 없으며 다른 클래스에서 이용하는 클래스
+* 실행 클래스 : main() 메서드를 가지고 있는 실행 가능한 클래스
+* 일반적으로 자바 프로그램은 하나의 실행 클리스와 여러 개의 라이브러리 클래스로 구성된다.
+```
+즉 Java 애플리케이션에서 일반적으로 Main.java 클래스는 하나만 존재하고, 
+모든 다른 클래스는 의존성으로서 호출되어 동작하는 라이브러리 클래스로 작동한다
+```
+
+[ 클래스 구성 멤버 ]
+* 필드 : 객체의 데이터를 저장하는 역할을 한다.
+  * String field;
+* 생성자 : new 연산자로 객체를 생성할 때 객체의 초기화 역할을 담당한다. 리턴 타입이 없고 이름은 클래스 이름과 동일하다.
+  * ClassName() {}
+* 메서드 : 객체가 수행할 동작이다. 객체와 객체간의 상호 작용을 위해 호출된다.
+  * void methodName() {}
+
+[ 필드 선언과 사용 ]
+* 변수를 선언하는 방법과 동일하다.
+* 타입 필드명 [ = 초기값];
+
+[ 필드와 로컬 변수의 차이점 ]
+* 필드 : 클래스 블록에서 선언되며, 객체 내부에서 존재하고 객체 내/외부 모두 사용 가능하다.
+* 로컬 변수 : 생성자와 메서드 블록에서 선언되며 생성자와 메서드 호출 시에만 생성되고 사용된다.
+
+[ 필드 사용 ]
+* 외부 객체에서에서 사용할 경우 new 연산자로 객체를 생성한 후에 `객체.필드 = "hi"` 도트 연산자로 접근할 수 있다.
+* 객체 내부에서는 생성자와 메서드는 객체가 생성된 후 호출되므로 내부에서 필드를 상요할 수 있다. `필드 = "hi"`
+
+[ 생성자 선언과 호출 ]
+* new 연산자는 객체를 생성한 후 연이어 생성자를 호출해서 객체를 초기화하는 역할을 한다.
+* 여기서 초기화는 필드 초기화를 하거나 메서드를 호출해서 객체를 사용할 준비를 하는 것을 뜻한다.
+
+1. Constructor Class 가 있다고 가정
+```java
+package com.chapter.ch06.example.ex07;
+
+public class Constructor {
+    String constructorField = "hi";
+}
+```
+
+2. new 연산자를 통해 생성자를 호출해서 객체를 생성한다.
+```java
+package com.chapter.ch06.example.ex07;
+
+public class New {
+    void newMethod () {
+        Constructor constructor = new Constructor();
+        constructor.constructorField = "bye";
+    }
+}
+```
+* 이처럼 생성자가 성공적으로 실행이 끝나면 new 연산자는 객체의 주소를 리턴한다.
+* 리턴된 주소는 클래스 변수에 대입되어 객체의 필드나 메서드에 접근할 때 이용되는 것이다.
+
+[ 오버로딩 ]
+``` java 
+// 코카콜라도 같은 제품형이지만 Size 별로 여러 가지가 있다.
+// => 같은 이름의 메서드에 버전이 여러 가지 있는 거라고 생각하면 된다.
+
+// 매개변수의 개수가 다른 경우
+static int add(int a, int b) {
+    return a + b;
+}
+static int add (int a, int b, int c) {
+    return a + b + c;
+}
+
+// 매개변수의 자료형이 다른 경우
+static double add (double a, double b) {
+        return a + b;
+}
+
+// 매개변수의 자료형 순서가 다른 경우
+static String add(String a, char b) {
+    return a + b;
+}
+static String add(char a, String b) {
+    return a + b;
+}
+```
+
+*  이처럼 같은 메서드명으로 add 가 5개 존재하는데 컴파일 오류가 나지 않는다.
+*  왜냐하면 매개변수가 어떻게 되어있는가에 따라서 다른 메서드로 취급하기 때문이다.
+*  이 상태에서 완전히 똑같은 메서드를 복사해서 생성하면 컴파일 오류가 발생한다.
+*  즉 이걸 메서드 오버로딩이라고 한다.(오버라이딩이랑 다름)
+
+*  반환 자료형이 다른 것은 오버로딩되지 않는다.
+*  static double add(int a, int b) {return a + b;}
+
+### final class, final method
+* final field 는 기본적으로 초기값 설정 이후에 값을 변경할 수 없다고 배웠다.
+
+🤔 그럼 final class, final method 는 어떻게 제어가 될까? 이는 상속과 관련이 있었다.
+
+[ final class ]
+* 먼저 class 에 final 키워드를 선언하면 말 그대로 최종적인 클래스로 상속이 불가능한 클래스가 된다.
+* 그 말은 final 키워드로 선언된 클래스는 부모 클래스가 될 수 없다는 말이다.
+
+✍ FinalParent.java
+```java
+package com.chapter.ch07.example.ex03;
+
+final class FinalParent {
+}
 
 ```
 
+✍ Children.java
+```java
+package com.chapter.ch07.example.ex03;
 
+public class Children extends FinalParent {
+}
+```
+
+👻 오류 발생
+* Cannot inherit from final 'com.chapter.ch07.example.ex03.FinalParent'
+
+👻 오류 내용
+* 부모 클래스가 final 로 선언되어 있어서 해당 클래스를 상속할 수 없다.
+
+[ final method ]
+
+🤔 그럼 method 가 final 이면 호출이 불가능할까?
+
+❌ 그건 아니다.
+
+* method 에 final 키워드를 선언하면 최종적인 메서드가 되는 것은 맞지만,
+* 호출은 가능하되 오버라이딩을 할 수 없는 메서드가 된다.
+
+✍ ParentFinalMethod.java
+```java
+package com.chapter.ch07.example.ex03;
+
+public class ParentFinalMethod {
+    final void finalMethod() {
+        System.out.println("final method");
+    }
+}
+```
+
+✍ ParentFinalMethod.java
+```java
+package com.chapter.ch07.example.ex03;
+
+public class Children extends ParentFinalMethod {
+
+}
+```
+
+✍ Main.java
+```java
+package com.chapter.ch07.example.ex03;
+
+public class Main {
+    public static void main(String[] args) {
+        Children children = new Children();
+        children.finalMethod();
+    }
+}
+```
+
+* 즉 이처럼 상속 받고 ParentFinalMethod 의 finalMethod 를 호출하면 "final method" 가 잘 출력이 된다.
+* 하지만
+
+✍ Children.java
+```java
+package com.chapter.ch07.example.ex03;
+
+public class Children extends ParentFinalMethod {
+    @Override
+    void finalMethod() {    // ❌ 오류 발생
+        System.out.println("overriding");
+    }
+}
+```
+* 이처럼 오버라이딩을 시도하면 오류가 발생한다.
+
+👻 오류 발생
+* 'finalMethod()' cannot override 'finalMethod()' in 'com.chapter.ch07.example.ex03.ParentFinalMethod'; overridden method is final
+
+👻 오류 내용
+* final 로 선언되었기 때문에 자식 클래스에서 변경하거나 재정의(override)할 수 없다.
+
+[ Protected 접근 제한자 ]
+* protected 는 상속과 관련이 있다.
+* 같은 패키지의 경우 default 처럼 접근이 가능하다.
+* 다른 패키지의 경우 자식 클래스만 접근이 가능하다.
+
+✍ ProtectedClass.java
+```java
+package com.chapter.ch07.example.ex04;
+
+public class ProtectedClass {
+    void protectedMethod() {
+        System.out.println("protected method");
+    }
+}
+```
+
+✍ Children.java (같은 패키지)
+```java
+package com.chapter.ch07.example.ex04;
+
+public class Children {
+    // 같은 패키지 ⭕ 접근 가능
+    void childrenMethod() {
+        ProtectedClass protectedClass = new ProtectedClass();
+        protectedClass.protectedMethod();
+    }
+}
+```
+* 같은 패키지는 protected 키워드로 선언한 method 에 접근이 가능하다.
+* 하지만
+
+✍ Children.java (다른 패키지)
+```java
+package com.chapter.ch07.example.ex03;
+
+import com.chapter.ch07.example.ex04.ProtectedClass;
+
+public class Children {
+    // 다른 패키지 ❌ 접근 불가능
+    void method () {
+        ProtectedClass protectedClass = new ProtectedClass();
+        protectedClass.protectedMethod();
+    }
+}
+```
+* 다른 패키지의 경우 오류가 발생한다.
+
+👻 오류 발생
+* 'protectedMethod()' is not public in 'com.chapter.ch07.example.ex04.ProtectedClass'. Cannot be accessed from outside package
+
+👻 오류 내용
+* 'protected' 접근 제어자는 같은 패키지 내에서는 접근할 수 있으나, 패키지 외부에서는 접근할 수 없도록 제한된 접근 제어자이다.
+
+👻 해결 방안
+* 생성자에서 super() 로 호출하여 상속을 통해 사용이 가능하다.
+
+✍ Children.java (다른 패키지)
+```java
+package com.chapter.ch07.example.ex03;
+
+import com.chapter.ch07.example.ex04.ProtectedClass;
+
+public class Children extends ProtectedClass{
+    // 다른 패키지
+    public Children() {
+        super();    // 자식 생성자에서 super() 호출
+        this.protectedMethod(); // ⭕ 접근 가능
+        method();
+    }
+
+    public void method () {
+        this.protectedMethod(); // ⭕ 접근 가능
+    }
+}
+```
+* 하지만 X x = new X(); 처럼 직접 객체를 생성해서 사용하는 것은 불가능 하다.
+
+[ Getter 와 Setter ]
+* 자바 언어의 기능이라기 보다는 객체 지향 기능을 갖춘 프로그래밍 언어들에서 많이 사용하는 코딩 스타
+일(기법)이다.
+* 인텔리로 이용해 보기!
+
+```java
+package six;
+
+public class Product {
+    private static double discount;
+    private static double increaseLimit;
+    
+    private String name;
+    private int price;
+}
+```
+
+* 우클릭 => Generate(Alt + Insert) => Getter and Setter => 모두 선택 => Enter
+```java
+package six;
+public class Product {
+  private static double discount = 0.2;
+  private static double increaseLimit = 1.2;
+  private String name;
+  private int price;
+
+  public Product(String name, int price) {
+    this.name = name;
+    this.price = price;
+  }
+
+  // 외부에서 값을 가져가려면 getDiscount() 사용
+  public static double getDiscount() {
+    return discount; // discount 필드의 값을 return
+  }
+
+  // 외부에서 discount 값을 변경하려면 setDiscount() 사용
+  public static void setDiscount(double discount) {
+    Product.discount = discount;
+  }
+
+  public static double getIncreaseLimit() {
+    return increaseLimit;
+  }
+
+  public static void setIncreaseLimit(double increaseLimit) {
+    Product.increaseLimit = increaseLimit;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  // 조건적으로 주기
+  public void setName(String name) {
+    if(name.isBlank()) return; // 만약 name이 공백이면 return => 적용 x
+    this.name = name;
+  }
+
+  // 가격 측정도 getPrice() 에서 할인된 가격으로 return 한다.
+  public int getPrice() {
+    return (int) (price * (1 - discount));
+  }
+
+  // 현재 가격 보다 새가격이 가격 인상 최대치를 적용한 값보다 작다면 그걸 적용하고 그렇지 않다면 그것보다 크지 않게 적용한다.
+  public void setPrice(int price) {
+    // this 사용 주의!
+    int max = (int) (this.price * increaseLimit);
+    this.price = price < max ? price : max;
+  }
+}
+```
+
+[ Getter and Setter 예시 ]
+```java
+package six;
+public class Main_3 {
+  public static void main(String[] args) {
+    Product ballPen = new Product("볼펜", 1000);
+    ballPen.setName("삼색 볼펜");
+    ballPen.setName("");
+    
+    int ballPenPrice = ballPen.getPrice();
+    ballPen.setPrice(1500);
+  }
+}
+// 출력 값
+// ballPen = {Product@707}
+// name = "삼색 볼펜"
+// price = 1200
+```
+
+[ 정적(static) 필드와 메서드 ]
+* 언어마다 클래스의 필드와 클래스의 메서드
+* 또는 정적 필드와 정적 메서드라고도 한다.
+
+
+* 정적(static) 요소는 메모리 중 한 곳만 차지한다.(brand, contact)
+* 인스턴스 요소들은 각각이 메모리에 자리를 차지한다.(name, no, intro)
+
+[ BBQChicken.java ]
+``` java 
+public class Chicken {
+    // 정적(클래스) 필드와 메서드들: 본사의 정보와 기능
+    // 인스턴스마다 따로 갖고 있을 필요가 없는 것들에 사용한다.
+    static String brand = "BBQ치킨";   // 모두 같은 브랜드
+
+    // 본사에 연락할 일이 있는 경우: 대응은 본사에서 하는 본사의 메서드이기 때문에 static
+    static String contact() {
+        // 정적 메서드에서는 인스턴스 프로퍼티 사용이 불가능하다.
+        // System.out.println(name);
+
+        return "%s입니다. 무엇을 도와드릴까요?".formatted(brand);
+    }
+
+    // 브랜드는 같지만 매장마다 다르다.
+    int no;
+    String name;
+
+    BBQChicken(int no, String name) {
+        this.no = no;
+        this.name = name;
+    }
+
+    String intro() {
+        // 인스턴스(매장) 메서드에서는 정적 프로퍼티 사용이 가능하다.
+        return "안녕하세요, %s %d호 %s점입니다.".formatted(brand, no, name);
+    }
+}
+```
+
+[ Main.java ]
+``` java 
+public class Main {
+    public static void main(String[] args) {
+        // no, name, intro 같은 매장의 정보를 사용하려면 인스턴스(매장)를 생성한 후
+        BBQChicken store1 = new BBQChicken(3, "판교");
+        String st1Intro = store1.intro();   // intro 메서드 등에 접근해서 사용한다.
+        
+        // 하지만
+        // 정적(클래스) 필드와 메서드는 인스턴스(매장)를 생성하지 않고 
+        // 본사 그 자체에서 바로 사용한다.
+        String ycBrand = BBQChicken.brand;
+        String ycContact = BBQChicken.contact();
+        
+        // 인스턴스 메서드는 사용이 불가능하다.
+        // String ycName = BBQChicken.name;  // 본사에 가서 여기 무슨점이에요?와 같음.
+        // String ycIntro = BBQChicken.intro();
+
+        // 인스턴스에서는 클래스의 필드와 메서드 사용은 가능하지만,
+        // 편의상 기능일 뿐, 권장하지는 않는다. (혼란 초래. IDE 에서 자동완성 안 됨 주목)
+        String st1Brand = store1.brand; // 마우스 오버 시 static 을 왜 인스턴스로 접근해?하고 알려줌
+        String st1Contact = store1.contact();
+    }
+} 
+```
+
+[ 싱글톤 ]
+* 프로그램 상에서 특정 인스턴스가 딱 하나만 있어야 할 때
+* 인스턴스 : new 키워드를 사용해서 클래스의 객체를 생성하면 해당 클래스의 인스턴스(객체)가 된다.
