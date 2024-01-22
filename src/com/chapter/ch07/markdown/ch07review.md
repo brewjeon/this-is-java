@@ -577,6 +577,7 @@ public class Children extends ProtectedClass{
 ## 7.7 타입 변환
 
 [ 자동 타입 변환 ]
+* 자동적으로 타입 변환이 일어나는 것
 
 ✍ main.java
 ```java
@@ -615,3 +616,28 @@ public class main {
 
 👻 오류 내용
 * 'Cat' 타입의 객체가 필요한데 'Dog' 타입의 객체가 제공되었다.
+
+[ 강제 타입 변환 ]
+* 자식 타입은 부모 타입으로 자동 변환되지만, 반대로 부모 타입은 자식 타입으로 자동 변환되지 않는다.
+
+```java
+package com.chapter.ch07.example.ex06;
+public class Main {
+    public static void main(String[] args) {
+        Parent parent = new Child();
+
+        parent.filed1 = "test";
+        parent.method1();
+        parent.method2();
+
+        // ❌ 불가능
+        // parent.field2 = "test";
+        // parent.method3();
+
+        // filed2와 method3를 사용하기 위해서 강제 타입 변환으로 복원
+        Child child = (Child) parent;
+        child.field2 = "test";
+        child.method3();
+    }
+}
+```

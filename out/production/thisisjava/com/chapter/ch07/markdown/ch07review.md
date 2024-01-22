@@ -577,6 +577,7 @@ public class Children extends ProtectedClass{
 ## 7.7 타입 변환
 
 [ 자동 타입 변환 ]
+* 자동적으로 타입 변환이 일어나는 것
 
 ✍ main.java
 ```java
@@ -596,6 +597,10 @@ public class main {
     Animals animals3 = new Cat();   // ⭕ Dog 도 가능
     Cat cat1 = new Animals();       // ❌ 컴파일 에러: 상위를 하위에 대입하는 것을 불가능함
     Cat cat2 = dog;                 // ❌ 컴파일 에러: 상속 관계가 아님
+
+    animals1.catMethod();   // Animals 부모 클래스에 있는 메서드
+    animals1.catMethod2();  // Animals 부모 클래스에 있는 오버라이딩 된 메서드
+    animals1.catMethod3();  // ❌ Animals 부모 클래스에 없음. 컴파일 에러 : 부모 타입으로 자동 타입 변환된 이후에는 부모 클래스에 선언된 필드와 메서드만 접근이 가능하다.
   }
 }
 ```
@@ -612,3 +617,27 @@ public class main {
 👻 오류 내용
 * 'Cat' 타입의 객체가 필요한데 'Dog' 타입의 객체가 제공되었다.
 
+[ 강제 타입 변환 ]
+* 자식 타입은 부모 타입으로 자동 변환되지만, 반대로 부모 타입은 자식 타입으로 자동 변환되지 않는다.
+
+```java
+package com.chapter.ch07.example.ex06;
+public class Main {
+    public static void main(String[] args) {
+        Parent parent = new Child();
+
+        parent.filed1 = "test";
+        parent.method1();
+        parent.method2();
+
+        // ❌ 불가능
+        // parent.field2 = "test";
+        // parent.method3();
+
+        // filed2와 method3를 사용하기 위해서 강제 타입 변환으로 복원
+        Child child = (Child) parent;
+        child.field2 = "test";
+        child.method3();
+    }
+}
+```

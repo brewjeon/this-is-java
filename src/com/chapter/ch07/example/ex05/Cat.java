@@ -2,8 +2,8 @@ package com.chapter.ch07.example.ex05;
 
 public class Cat extends Animals {
     String catField = "cat";
-    
-    void catMethod () {
+
+    void method () {
         System.out.println("meow");
     }
 
