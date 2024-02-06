@@ -231,7 +231,6 @@ public class A {
 ```
 
 ✍ AExample.java (ex03)
-
 ```java
 package com.chapter.ch09.example.sec03;
 
@@ -242,9 +241,7 @@ public class AExample {
     A.B b = new A.B();
 }
 ```
-[ ex04 예제 설명 ]
 
-
-[ ex04 예제 설명 ]
+[ ex03 예제 설명 ]
 * 정적 멤버 클래스 B 내부에는 일반 클래스와 같이 필드, 생성자, 메서드 선언이 올 수 있다.
 
